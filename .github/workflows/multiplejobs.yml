@@ -1,0 +1,27 @@
+name: multiple jobs
+on: push
+
+jobs: 
+  job1:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Welcome Message
+        run: echo "Hello from Job 1"
+
+      - name: Install and Show Snake
+        run: |
+          sudo apt update
+          sudo apt install cowsay -y
+          /usr/games/cowsay -f elephant-in-snake "I am Job 1's snake!"
+
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Another Message
+        run: echo "This is Job 2 running in parallel"
+
+  job3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Final Message
+        run: echo "This is Job 3"
