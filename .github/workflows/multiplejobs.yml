@@ -1,26 +1,39 @@
-name: sequential jobs
+name: Artifact Workflow
 on: push
 
-jobs: 
-  job1:
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Install and Show Snake
-        run: |
-          sudo apt update
-          sudo apt install cowsay -y
-          /usr/games/cowsay -f elephant-in-snake "I am Job 1"
-
-  job2:
-    needs: job1
+jobs:
+  job1_upload:
     runs-on: ubuntu-latest
     steps:
-      - name: Sequential Check
-        run: echo "Job 1 finished, so I am starting now."
+      - name: Create a File
+        run: echo "Hello from Job 1" > output.txt
 
-  job3:
-    needs: job2
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-shared-file
+          path: output.txt
+
+  job2_download:
+    needs: job1_upload
     runs-on: ubuntu-latest
     steps:
-      - name: Final Check
-        run: echo "Job 2 finished, I am the last step."
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: my-shared-file
+
+      - name: Read Uploaded File
+        run: cat output.txt
+
+  job3_download:
+    needs: job2_download
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: my-shared-file
+
+      - name: Verify File Again
+        run: ls -R
