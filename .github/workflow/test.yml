@@ -1,0 +1,14 @@
+name: first workflow
+on: push
+jobs: 
+    first_job:
+        runs-on: ubuntu-latest
+        steps: 
+        - name: Welcome Message
+          run: echo "My first workflow command"
+
+          -name: List files
+           run: ls 
+
+           -name: show index.html
+            run: cat index.html
