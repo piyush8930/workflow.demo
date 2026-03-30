@@ -4,9 +4,6 @@ jobs:
   first_job:
     runs-on: ubuntu-latest
     steps: 
-      - name: Checkout repo
-        uses: actions/checkout@v6
-
       - name: Welcome Message
         run: echo "My first workflow command"
 
@@ -15,3 +12,14 @@ jobs:
 
       - name: show index.html
         run: cat index.html
+
+      - name: Install Cowsay
+        run: |
+          sudo apt update
+          sudo apt install cowsay -y
+
+      - name: Show Snake (Elephant in Snake)
+        run: /usr/games/cowsay -f elephant-in-snake "I am inside a snake!"
+
+      - name: Show Cow with Snake Eyes
+        run: /usr/games/cowsay -e ss "Look at my snake eyes!"
