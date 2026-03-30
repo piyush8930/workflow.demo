@@ -7,11 +7,7 @@ jobs:
       - name: Welcome Message
         run: echo "My first workflow command"
 
-      - name: List files
-        run: ls 
 
-      - name: show index.html
-        run: cat index.html
 
       - name: Install Cowsay
         run: |
